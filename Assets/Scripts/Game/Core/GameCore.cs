@@ -33,7 +33,7 @@ namespace Game.Core
 
         private StateHandler<EnterStateData, ExitStateData, UpdateData> currentState;
 
-        private readonly Dictionary<Type, StateHandler<EnterStateData, ExitStateData, UpdateData>> allStates = new()
+        private readonly Dictionary<Type, StateHandler<EnterStateData, ExitStateData, UpdateData>> allStates = new Dictionary<Type, StateHandler<EnterStateData, ExitStateData, UpdateData>>()
         {
             { typeof(State_WaitingForGameStart), new State_WaitingForGameStart() },
             { typeof(State_Inactive), new State_Inactive() },

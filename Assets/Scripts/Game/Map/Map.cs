@@ -11,7 +11,7 @@ namespace Game.Map
 
 
         [SerializeField]
-        private List<MapElement> mapElementsVariantsPrefabs = new();
+        private List<MapElement> mapElementsVariantsPrefabs = new List<MapElement>();
 
 
         public async UniTask Init()

@@ -63,7 +63,7 @@ namespace Game.UI
         {
             if (progressBarPct == null) // if null then create new with initial value
             {
-                progressBarPct = new()
+                progressBarPct = new GameReactivePropertyOldAndNew<float>()
                 {
                     Value = -1,
                     OnChange = ProgressBarPctOnChange

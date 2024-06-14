@@ -5,6 +5,6 @@ namespace GameFramework.GameEventBus
 {
     public static partial class GameEventBus
     {
-        private static readonly Dictionary<GameEventType, object> AllStaticEvents = new();
+        private static readonly Dictionary<GameEventType, object> AllStaticEvents = new Dictionary<GameEventType, object>();
     }
 }
