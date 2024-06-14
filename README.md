@@ -1,4 +1,5 @@
 # This is an exaple FizzBuzz runner game prototype, WIP
+Unity version 2020.3.40f1  
 Hours spent: 6
 
 
