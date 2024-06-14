@@ -1,65 +1,69 @@
 ﻿using System;
+using Game.Core.GameEventBusVariants.EventTypes;
 using UnityEngine;
 using UnityEngine.Events;
 
-public static partial class GameEventBus
+namespace GameFramework.GameEventBus
 {
-    public static void TriggerEvent<T>(this T eventData) where T : struct, IEventDataType
+    public static partial class GameEventBus
     {
-        var eventType = eventData.GameEventType();
-        TriggerEvent(eventType, eventData);
-    }
-
-
-    public static void TriggerEvent<T>(this T eventData, GameEventType eventName)
-    {
-        TriggerEvent(eventName, eventData);
-    }
-
-
-    public static void TriggerEvent<T>(GameEventType eventName, T eventTriggerData)
-    {
-        var targetEvents = AllStaticEvents;
-        if (targetEvents.TryGetValue(eventName, out var eventRef))
+        public static void TriggerEvent<T>(this T eventData) where T : IEventDataType
         {
-            if (eventRef is UnityEvent<T> eventInstance)
+            var eventType = eventData.GameEventType();
+            TriggerEvent(eventType, eventData);
+        }
+
+
+        public static void TriggerEvent<T>(this T eventData, GameEventType eventName)
+        {
+            TriggerEvent(eventName, eventData);
+        }
+
+
+        public static void TriggerEvent<T>(GameEventType eventName, T eventTriggerData)
+        {
+            var targetEvents = AllStaticEvents;
+            if (targetEvents.TryGetValue(eventName, out var eventRef))
             {
-                try
+                if (eventRef is UnityEvent<T> eventInstance)
                 {
-                    eventInstance.Invoke(eventTriggerData);
+                    try
+                    {
+                        eventInstance.Invoke(eventTriggerData);
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.LogException(new Exception($"[GameEventBus.TriggerEvent] Fail to invoke event: {eventName}\n{e}"));
+                    }
                 }
-                catch (Exception e)
+                else
                 {
-                    Debug.LogException(new Exception($"[GameEventBus.TriggerEvent] Fail to invoke event: {eventName}\n{e}"));
+                    Debug.LogException(new Exception($"[GameEventBus.TriggerEvent] Incorrect event handler for event: {eventName}"));
                 }
-            }
-            else
-            {
-                Debug.LogException(new Exception($"[GameEventBus.TriggerEvent] Incorrect event handler for event: {eventName}"));
             }
         }
-    }
 
 
-    public static void TriggerEvent(GameEventType eventName)
-    {
-        var targetEvents = AllStaticEvents;
-        if (targetEvents.TryGetValue(eventName, out var eventRef))
+        public static void TriggerEvent(GameEventType eventName)
         {
-            if (eventRef is UnityEvent eventInstance)
+            var targetEvents = AllStaticEvents;
+            if (targetEvents.TryGetValue(eventName, out var eventRef))
             {
-                try
+                if (eventRef is UnityEvent eventInstance)
                 {
-                    eventInstance.Invoke();
+                    try
+                    {
+                        eventInstance.Invoke();
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.LogException(new Exception($"[GameEventBus.TriggerEvent] Fail to invoke event: {eventName}\n{e}"));
+                    }
                 }
-                catch (Exception e)
+                else
                 {
-                    Debug.LogException(new Exception($"[GameEventBus.TriggerEvent] Fail to invoke event: {eventName}\n{e}"));
+                    Debug.LogException(new Exception($"[GameEventBus.TriggerEvent] Incorrect event handler for event: {eventName}"));
                 }
-            }
-            else
-            {
-                Debug.LogException(new Exception($"[GameEventBus.TriggerEvent] Incorrect event handler for event: {eventName}"));
             }
         }
     }

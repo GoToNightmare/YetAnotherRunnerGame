@@ -1,54 +1,58 @@
 ﻿using System;
+using Game.Core.GameEventBusVariants.EventTypes;
 using UnityEngine;
 using UnityEngine.Events;
 
-public static partial class GameEventBus
+namespace GameFramework.GameEventBus
 {
-    public static void RemoveListener<T>(UnityAction<T> listener) where T : IEventDataType, new()
+    public static partial class GameEventBus
     {
-        var instanceOfT = new T();
-        var eventName = instanceOfT.GameEventType();
-        RemoveListener(eventName, listener);
-    }
-
-
-    public static void RemoveListener<T>(GameEventType eventName, UnityAction<T> listener)
-    {
-        var targetEvents = AllStaticEvents;
-        if (targetEvents.TryGetValue(eventName, out var eventRef))
+        public static void RemoveListener<T>(UnityAction<T> listener) where T : IEventDataType, new()
         {
-            if (eventRef is UnityEvent<T> eventInstance)
+            var instanceOfT = new T();
+            var eventName = instanceOfT.GameEventType();
+            RemoveListener(eventName, listener);
+        }
+
+
+        public static void RemoveListener<T>(GameEventType eventName, UnityAction<T> listener)
+        {
+            var targetEvents = AllStaticEvents;
+            if (targetEvents.TryGetValue(eventName, out var eventRef))
             {
-                eventInstance.RemoveListener(listener);
-                targetEvents[eventName] = eventInstance;
-            }
-            else
-            {
-                var dbgClassName = listener?.Method?.DeclaringType?.FullName;
-                var dbgMethodName = listener?.Method?.Name;
-                Debug.LogException(new Exception($"[GameEventBus.RemoveListener] Incorrect event listener for event: {eventName}. Class: {dbgClassName}, method: {dbgMethodName}. " +
-                                                 $"Check event subscription and unsubscription code for this event type, all event listeners should have the same type of UnityAction<T> delegate (method that passed as parameter)."));
+                if (eventRef is UnityEvent<T> eventInstance)
+                {
+                    eventInstance.RemoveListener(listener);
+                    targetEvents[eventName] = eventInstance;
+                }
+                else
+                {
+                    var dbgClassName = listener?.Method?.DeclaringType?.FullName;
+                    var dbgMethodName = listener?.Method?.Name;
+                    Debug.LogException(new Exception($"[GameEventBus.RemoveListener] Incorrect event listener for event: {eventName}. Class: {dbgClassName}, method: {dbgMethodName}. " +
+                                                     $"Check event subscription and unsubscription code for this event type, all event listeners should have the same type of UnityAction<T> delegate (method that passed as parameter)."));
+                }
             }
         }
-    }
 
 
-    public static void RemoveListener(GameEventType eventName, UnityAction listener)
-    {
-        var targetEvents = AllStaticEvents;
-        if (targetEvents.TryGetValue(eventName, out var eventRef))
+        public static void RemoveListener(GameEventType eventName, UnityAction listener)
         {
-            if (eventRef is UnityEvent eventInstance)
+            var targetEvents = AllStaticEvents;
+            if (targetEvents.TryGetValue(eventName, out var eventRef))
             {
-                eventInstance.RemoveListener(listener);
-                targetEvents[eventName] = eventInstance;
-            }
-            else
-            {
-                var dbgClassName = listener?.Method?.DeclaringType?.FullName;
-                var dbgMethodName = listener?.Method?.Name;
-                Debug.LogException(new Exception($"[GameEventBus.RemoveListener] Incorrect event listener for event: {eventName}. Class: {dbgClassName}, method: {dbgMethodName}. " +
-                                                 $"Check event subscription and unsubscription code for this event type, all event listeners should have the same type of UnityAction<T> delegate (method that passed as parameter)."));
+                if (eventRef is UnityEvent eventInstance)
+                {
+                    eventInstance.RemoveListener(listener);
+                    targetEvents[eventName] = eventInstance;
+                }
+                else
+                {
+                    var dbgClassName = listener?.Method?.DeclaringType?.FullName;
+                    var dbgMethodName = listener?.Method?.Name;
+                    Debug.LogException(new Exception($"[GameEventBus.RemoveListener] Incorrect event listener for event: {eventName}. Class: {dbgClassName}, method: {dbgMethodName}. " +
+                                                     $"Check event subscription and unsubscription code for this event type, all event listeners should have the same type of UnityAction<T> delegate (method that passed as parameter)."));
+                }
             }
         }
     }

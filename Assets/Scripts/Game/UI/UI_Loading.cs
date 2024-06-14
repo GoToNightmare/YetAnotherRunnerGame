@@ -1,5 +1,6 @@
 ﻿using System;
-using GameFramework.GameEventBus.EventDataTypes;
+using Game.Core.GameEventBusVariants.EventDataTypes;
+using GameFramework.GameEventBus;
 using GameFramework.GameReactiveProperty;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,6 +11,10 @@ namespace Game.UI
     {
         [SerializeField]
         private Image loadingBar;
+
+
+        [SerializeField]
+        private GameObject loadingParent;
 
 
         private GameReactivePropertyOldAndNew<float> progressBarPct;
@@ -39,6 +44,18 @@ namespace Game.UI
             pct = Mathf.Clamp01(pct);
 
             ChangeProgressBar(pct);
+
+
+            if (eventData.Finished)
+            {
+                ChangeState(false);
+            }
+        }
+
+
+        private void ChangeState(bool loadingUiActive)
+        {
+            loadingParent.SetActive(loadingUiActive);
         }
 
 

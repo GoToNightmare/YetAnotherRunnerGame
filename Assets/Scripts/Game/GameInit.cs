@@ -1,6 +1,6 @@
-﻿using System;
-using Cysharp.Threading.Tasks;
-using GameFramework.GameEventBus.EventDataTypes;
+﻿using Cysharp.Threading.Tasks;
+using Game.Core.GameEventBusVariants.EventDataTypes;
+using GameFramework.GameEventBus;
 using Loading;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -25,7 +25,7 @@ namespace Game
 
         private async void Start()
         {
-            GameEventBus.AddListener<ED_LoadingGetCurrentPct>(Listener);
+            GameEventBus.AddListener<ED_LoadingGetCurrentPct>(RequestedCurrentLoadingProgress);
 
 
             Debug.Log("[GameInit] Start!");
@@ -35,11 +35,11 @@ namespace Game
 
         private void OnDestroy()
         {
-            GameEventBus.RemoveListener<ED_LoadingGetCurrentPct>(Listener);
+            GameEventBus.RemoveListener<ED_LoadingGetCurrentPct>(RequestedCurrentLoadingProgress);
         }
 
 
-        private void Listener(ED_LoadingGetCurrentPct eventData)
+        private void RequestedCurrentLoadingProgress(ED_LoadingGetCurrentPct eventData)
         {
             new ED_LoadingProgressChanged()
             {
@@ -85,7 +85,7 @@ namespace Game
 
             const float everythingLoaded = 1;
             LoadingPct01 = everythingLoaded;
-            new ED_LoadingProgressChanged() { ProgressPct01 = LoadingPct01 }.TriggerEvent();
+            new ED_LoadingProgressChanged() { ProgressPct01 = LoadingPct01, Finished = true }.TriggerEvent();
         }
     }
 }

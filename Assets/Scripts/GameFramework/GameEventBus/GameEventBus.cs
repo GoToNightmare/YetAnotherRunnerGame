@@ -1,3 +1,6 @@
-﻿public static partial class GameEventBus
+﻿namespace GameFramework.GameEventBus
 {
+    public static partial class GameEventBus
+    {
+    }
 }

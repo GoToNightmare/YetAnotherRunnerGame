@@ -3,34 +3,37 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-public class GameReactiveProperty<T>
+namespace GameFramework.GameReactiveProperty
 {
-    public static EqualityComparer<T> Comparer = EqualityComparer<T>.Default;
-
-    protected T CurrentValue;
-
-    public Action<GameReactiveProperty<T>> OnChange;
-
-    public T Value
+    public class GameReactiveProperty<T>
     {
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        get => CurrentValue;
-        set
+        public static EqualityComparer<T> Comparer = EqualityComparer<T>.Default;
+
+        protected T CurrentValue;
+
+        public Action<GameReactiveProperty<T>> OnChange;
+
+        public T Value
         {
-            if (Comparer.Equals(CurrentValue, value))
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            get => CurrentValue;
+            set
             {
-                return;
-            }
+                if (Comparer.Equals(CurrentValue, value))
+                {
+                    return;
+                }
 
-            CurrentValue = value;
+                CurrentValue = value;
 
-            try
-            {
-                OnChange?.Invoke(this);
-            }
-            catch (Exception e)
-            {
-                Debug.LogException(e);
+                try
+                {
+                    OnChange?.Invoke(this);
+                }
+                catch (Exception e)
+                {
+                    Debug.LogException(e);
+                }
             }
         }
     }

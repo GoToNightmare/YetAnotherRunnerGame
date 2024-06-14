@@ -32,6 +32,21 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7b97e94961a6046418e60f5e8a4f4f55
+    m_Address: Assets/Prefabs/GameLevelGenerator.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3915f98682cfc55439645ea3a7ce7ab0
+    m_Address: Assets/Prefabs/Player.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8ae3ecbd90769cd4aa1b7ac309c0b3e2
+    m_Address: Assets/Prefabs/Map.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 03f0fecf8c2343d48aaee8596b2d5fd2, type: 2}
   m_SchemaSet:

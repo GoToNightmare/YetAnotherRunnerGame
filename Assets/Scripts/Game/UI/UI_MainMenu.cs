@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using Game.Core.GameEventBusVariants.EventDataTypes;
+using Game.Core.StateMachineVariants.States;
+using GameFramework.GameEventBus;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Game.UI
@@ -27,6 +30,8 @@ namespace Game.UI
             buttonOption1.onClick.AddListener(Option1Click);
             buttonOption2.onClick.AddListener(Option2Click);
             buttonQuit.onClick.AddListener(QuitClick);
+
+            GameEventBus.AddListener<ED_GameStateChanged>(GameStateChanged);
         }
 
 
@@ -36,11 +41,31 @@ namespace Game.UI
             buttonOption1.onClick.RemoveAllListeners();
             buttonOption2.onClick.RemoveAllListeners();
             buttonQuit.onClick.RemoveAllListeners();
+
+            GameEventBus.RemoveListener<ED_GameStateChanged>(GameStateChanged);
+        }
+
+
+        private void GameStateChanged(ED_GameStateChanged eventData)
+        {
+            var newState = eventData.NewState;
+            bool gameStarted = newState == typeof(State_WaitingForGameStart);
+            if (gameStarted)
+            {
+                ChangeUiState(false);
+            }
+        }
+
+
+        private void ChangeUiState(bool uiActive)
+        {
+            parent.SetActive(uiActive);
         }
 
 
         private void StartClick()
         {
+            new ED_StartClick().TriggerEvent();
         }
 
 
