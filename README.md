@@ -19,7 +19,7 @@ To add:
  - Game would use custom Update for gameplay logic and state machine states, so pause would only stop game world  
  - Movement should use `MapElement` nodes. When player turn left or right, it should swap next traget node to the corresponding node from different path and slowly chance position over dt  
  - Unity physics or custom spatial hasing to detect collision with obstacles  
- - Red vignette and other effects based on gameplayer events  
+ - Red vignette and other effects based on game events  
 
 
 
@@ -33,7 +33,7 @@ To add:
 ## TODO  
  - Addressables.ReleaseInstance  
  - Scriptable objects for differnt game rules/spawn chances  
- - Map generation with rorated map pieces  
+ - Map generation with rotated map pieces  
  - Player controller, tap/swipe  
  - Camera  
  - Ingame UI  
