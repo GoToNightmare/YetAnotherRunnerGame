@@ -40,3 +40,4 @@ To add:
  - Obstacles  
  - Pickable items/coins  
  - Serialization
+ - Various models/animations/sprites
