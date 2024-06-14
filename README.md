@@ -18,7 +18,7 @@ To add:
 
 ## How it should work. Ideas  
  - Game would use custom Update for gameplay logic and state machine states, so pause would only stop game world  
- - Movement should use `MapElement` nodes. When player turn left or right, it should swap next traget node to the corresponding node from different path and slowly chance position over dt  
+ - Movement should use `MapElement` nodes. When player turn left or right, it should swap next traget node to the corresponding node from different path and slowly change position over dt  
  - Unity physics or custom spatial hasing to detect collision with obstacles  
  - Red vignette and other effects based on game events  
 
