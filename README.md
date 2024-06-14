@@ -33,7 +33,7 @@ To add:
 ## TODO  
  - Addressables.ReleaseInstance  
  - Scriptable objects for differnt game rules/spawn chances  
- - Map generation with rorated map pieces  
+ - Map generation with rotated map pieces  
  - Player controller, tap/swipe  
  - Camera  
  - Ingame UI  
