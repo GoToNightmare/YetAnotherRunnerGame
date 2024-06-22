@@ -6,6 +6,6 @@ namespace Game.Map
     public class Path : MonoBehaviour
     {
         [SerializeField]
-        private List<Transform> nodesList;
+        public List<Transform> nodesList;
     }
 }

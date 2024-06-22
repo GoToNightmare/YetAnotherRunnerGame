@@ -29,6 +29,6 @@ namespace Game.Map
 
 
         [SerializeField]
-        private MapPaths allNodes;
+        public MapPaths allNodes;
     }
 }

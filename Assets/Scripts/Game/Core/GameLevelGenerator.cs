@@ -61,6 +61,7 @@ namespace Game.Core
             if (MapReference.TryGetComponent(out IGameplayObject gameplayObjectMap))
             {
                 await gameplayObjectMap.Init();
+                await gameplayObjectMap.CustomEnable();
             }
 
 
@@ -68,6 +69,7 @@ namespace Game.Core
             if (PlayerReference.TryGetComponent(out IGameplayObject gameplayObjectPlayer))
             {
                 await gameplayObjectPlayer.Init();
+                await gameplayObjectPlayer.CustomEnable();
             }
 
 
