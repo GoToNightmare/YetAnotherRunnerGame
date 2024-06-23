@@ -11,5 +11,8 @@ namespace Game.Core
 
 
         UniTask CustomDisable();
+
+
+        void Reset();
     }
 }

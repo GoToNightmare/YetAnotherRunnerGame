@@ -38,5 +38,10 @@ namespace Game.Player
                 camera.transform.position = CameraOriginalPosition;
             }
         }
+
+
+        public void OnUpdate(GameObject playerObj)
+        {
+        }
     }
 }

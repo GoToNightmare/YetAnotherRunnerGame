@@ -9,7 +9,7 @@ namespace Game
 
         public static void SetFramerate(int framerate = DefaultFramerate)
         {
-            Application.targetFrameRate = DefaultFramerate;
+            Application.targetFrameRate = framerate;
         }
     }
 }

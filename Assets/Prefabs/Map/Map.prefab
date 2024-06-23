@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01bfcdbabbda42d182ed130158b013a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pathLength: 10
+  pathLength: 50
   mapElementsAddressables:
   - m_AssetGUID: 3b70d04238c5c404288e3c7af428c8d4
     m_SubObjectName: 

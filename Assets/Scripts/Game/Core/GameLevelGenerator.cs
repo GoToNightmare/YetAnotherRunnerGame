@@ -81,5 +81,32 @@ namespace Game.Core
 
             new ED_GameMapReady().TriggerEvent();
         }
+
+
+        private async UniTask FreeResources()
+        {
+            var playerRef = PlayerReference;
+            if (playerRef != null)
+            {
+                if (playerRef.TryGetComponent(out IGameplayObject gameplayObject))
+                {
+                    await gameplayObject.CustomDisable();
+                }
+
+                Addressables.ReleaseInstance(playerRef);
+            }
+
+
+            var mapRef = MapReference;
+            if (mapRef != null)
+            {
+                if (mapRef.TryGetComponent(out IGameplayObject gameplayObject))
+                {
+                    await gameplayObject.CustomDisable();
+                }
+
+                Addressables.ReleaseInstance(mapRef);
+            }
+        }
     }
 }

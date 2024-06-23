@@ -23,12 +23,30 @@ namespace Game.UI
         private void Start()
         {
             GameEventBus.AddListener<ED_LoadingProgressChanged>(ProgressChanged);
+            GameEventBus.AddListener<ED_LevelLoadingStart>(LevelLoadingStart);
+            GameEventBus.AddListener<ED_LevelLoadingEnd>(LevelLoadingEnd);
         }
 
 
         private void OnDestroy()
         {
             GameEventBus.RemoveListener<ED_LoadingProgressChanged>(ProgressChanged);
+            GameEventBus.AddListener<ED_LevelLoadingStart>(LevelLoadingStart);
+            GameEventBus.AddListener<ED_LevelLoadingEnd>(LevelLoadingEnd);
+        }
+
+
+        private void LevelLoadingStart(ED_LevelLoadingStart eventData)
+        {
+            ChangeProgressBar(0);
+            ChangeState(true);
+        }
+
+
+        private void LevelLoadingEnd(ED_LevelLoadingEnd eventData)
+        {
+            ChangeProgressBar(1);
+            ChangeState(false);
         }
 
 

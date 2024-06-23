@@ -13,6 +13,9 @@ namespace Game.Core
 {
     public class GameCore : MonoBehaviour, ILoadableObject
     {
+        private bool InitialLoadingComplete { get; set; }
+
+
         public async UniTask Load()
         {
             await UniTask.NextFrame();
@@ -94,6 +97,7 @@ namespace Game.Core
         {
             GameEventBus.AddListener<ED_StartClick>(StartClick);
             GameEventBus.AddListener<ED_ChangeGameState>(ChangeStateMessage);
+            GameEventBus.AddListener<ED_InitialLoadingFinished>(InitialLoadingFinished);
         }
 
 
@@ -101,6 +105,13 @@ namespace Game.Core
         {
             GameEventBus.RemoveListener<ED_StartClick>(StartClick);
             GameEventBus.RemoveListener<ED_ChangeGameState>(ChangeStateMessage);
+            GameEventBus.RemoveListener<ED_InitialLoadingFinished>(InitialLoadingFinished);
+        }
+
+
+        private void InitialLoadingFinished(ED_InitialLoadingFinished eventData)
+        {
+            InitialLoadingComplete = true;
         }
 
 
@@ -112,6 +123,15 @@ namespace Game.Core
 
         private void StartClick(ED_StartClick eventData)
         {
+            if (!InitialLoadingComplete)
+            {
+                return;
+            }
+
+
+            new ED_LevelLoadingStart().TriggerEvent();
+
+
             bool canStartTheGame = currentState == null;
             if (canStartTheGame)
             {

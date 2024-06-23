@@ -22,7 +22,7 @@ namespace Game.Core.StateMachineVariants.States
 
         private void GameMapReady(ED_GameMapReady eventData)
         {
-            new ED_ChangeGameState() { NewState = typeof(State_Active) };
+            new ED_ChangeGameState() { NewState = typeof(State_Active) }.TriggerEvent();
         }
 
 

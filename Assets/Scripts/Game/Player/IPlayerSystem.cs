@@ -6,5 +6,6 @@ namespace Game.Player
     {
         void OnEnable(GameObject playerObj);
         void OnDisable(GameObject playerObj);
+        void OnUpdate(GameObject playerObj);
     }
 }

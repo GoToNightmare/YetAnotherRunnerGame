@@ -3,12 +3,15 @@
     public enum GameEventType : int
     {
         None = 0,
-        LoadingProgressChanged = 1,
-        LoadingGetCurrentPct = 2,
+        LoadingProgressChanged,
+        LoadingGetCurrentPct,
         StartClick,
         PrepareGameMap,
         GameMapReady,
         ChangeGameState,
-        GameStateChanged
+        GameStateChanged,
+        InitialLoadingFinished,
+        LevelLoadingStart,
+        LevelLoadingEnd
     }
 }

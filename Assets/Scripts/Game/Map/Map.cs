@@ -4,6 +4,7 @@ using Cysharp.Threading.Tasks;
 using Game.Core;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.Assertions;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace Game.Map
@@ -31,6 +32,9 @@ namespace Game.Map
 
         public async UniTask Init()
         {
+            Assert.IsFalse(pathLength <= 0, "Path should be > 0");
+
+
             Vector3 lastSpawnPosition = Vector3.zero;
             for (int i = 0; i < pathLength; i++)
             {
@@ -121,8 +125,7 @@ namespace Game.Map
 
         private AssetReference GetRandomMapElement()
         {
-            // TODO add random path generation
-            return mapElementsAddressables[0];
+            return mapElementsAddressables.TakeRandomElementInRangeOfCollection();
         }
 
 
@@ -140,6 +143,11 @@ namespace Game.Map
             }
 
             spawnedObjects.Clear();
+        }
+
+
+        public void Reset()
+        {
         }
     }
 }

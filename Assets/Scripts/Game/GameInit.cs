@@ -23,13 +23,13 @@ namespace Game
         }
 
 
-        private async void Start()
+        private void Start()
         {
             GameEventBus.AddListener<ED_LoadingGetCurrentPct>(RequestedCurrentLoadingProgress);
 
 
             Debug.Log("[GameInit] Start!");
-            await LoadAssetsAsync();
+            LoadAssetsAsync().Forget();
         }
 
 
@@ -58,8 +58,6 @@ namespace Game
             foreach (var assetReference in toLoad)
             {
                 var loadResult = await assetReference.InstantiateAsync();
-
-
                 var allLoadableComponents = loadResult.GetComponents<ILoadableObject>();
                 Assert.IsNotNull(allLoadableComponents);
                 Assert.IsTrue(allLoadableComponents.Length > 0);
@@ -75,7 +73,7 @@ namespace Game
 
 
                 // Update cached pct
-                var pct01 = (float)current / (float)total;
+                float pct01 = (float)current / (float)total;
                 LoadingPct01 = Mathf.Clamp01(pct01);
 
 
@@ -86,6 +84,10 @@ namespace Game
             const float everythingLoaded = 1;
             LoadingPct01 = everythingLoaded;
             new ED_LoadingProgressChanged() { ProgressPct01 = LoadingPct01, Finished = true }.TriggerEvent();
+
+
+            await UniTask.NextFrame();
+            new ED_InitialLoadingFinished().TriggerEvent();
         }
     }
 }

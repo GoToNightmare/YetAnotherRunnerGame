@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using Game.Core;
@@ -10,6 +11,7 @@ namespace Game.Player
         private readonly List<IPlayerSystem> playerSystems = new List<IPlayerSystem>()
         {
             { new PlayerCamera() },
+            { new PlayerInputs() },
         };
 
 
@@ -35,6 +37,21 @@ namespace Game.Player
             {
                 ps.OnDisable(playerGo);
             }
+        }
+
+
+        private void Update()
+        {
+            var playerGo = gameObject;
+            foreach (var ps in playerSystems)
+            {
+                ps.OnUpdate(playerGo);
+            }
+        }
+
+
+        public void Reset()
+        {
         }
     }
 }
